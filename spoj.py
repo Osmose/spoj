@@ -76,15 +76,15 @@ def create(problem_name):
 
     # Write program template and chmod +x
     program = '{0}/program.py'.format(problem_name)
-    with open(program, 'wU') as f:
+    with open(program, 'w') as f:
         f.write(problem_template.format(title=title, url=url))
     st = os.stat(program)
     os.chmod(program, st.st_mode | stat.S_IEXEC)
 
-    with open('{0}/input.txt'.format(problem_name), 'wU') as f:
+    with open('{0}/input.txt'.format(problem_name), 'w') as f:
         f.write(test_input)
 
-    with open('{0}/output.txt'.format(problem_name), 'wU') as f:
+    with open('{0}/output.txt'.format(problem_name), 'w') as f:
         f.write(test_output)
 
     print t.bright_green('Directory created for problem `{0}`.'.format(problem_name))
