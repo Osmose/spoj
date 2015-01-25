@@ -5,3 +5,4 @@ pip-log.txt
 *~
 *.mo
 venv/*
+*.egg-info

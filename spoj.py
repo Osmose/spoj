@@ -9,6 +9,9 @@ from blessings import Terminal
 from bs4 import BeautifulSoup
 
 
+__version__ = '0.1'
+
+
 def test(problem_name):
     """
     Run the test input for a problem and compare it to the expected
@@ -116,9 +119,12 @@ def _find_sample_io(soup):
 
     raise ValueError('Could not find sample input or output!')
 
-parser = argh.ArghParser()
-parser.add_commands([test, create])
+
+def main():
+    parser = argh.ArghParser()
+    parser.add_commands([test, create])
+    parser.dispatch()
 
 
 if __name__ == '__main__':
-    parser.dispatch()
+    main()
