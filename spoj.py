@@ -18,14 +18,14 @@ def test(problem_name):
 
     program = '{0}/program.py'.format(problem_name)
     test_input_filename = '{0}/input.txt'.format(problem_name)
-    with open(test_input_filename) as f:
+    with open(test_input_filename, 'rU') as f:
         test_input = f.read()
-    with open('{0}/output.txt'.format(problem_name)) as f:
+    with open('{0}/output.txt'.format(problem_name), 'rU') as f:
         expected_output = f.read()
 
-    result = subprocess.check_output(program, stdin=open(test_input_filename))
+    result = subprocess.check_output(program, stdin=open(test_input_filename, 'rU'))
 
-    if result != expected_output:
+    if result.strip() != expected_output.strip():
         print t.bright_red('Test run failed!')
         print t.cyan('<== Input ==>')
         print test_input
@@ -50,7 +50,7 @@ problem_template = '''
 """
 
 if __name__ == '__main__':
-    # Get to work!
+    pass # Get to work!
 '''.lstrip()
 
 
@@ -76,15 +76,15 @@ def create(problem_name):
 
     # Write program template and chmod +x
     program = '{0}/program.py'.format(problem_name)
-    with open(program, 'w') as f:
+    with open(program, 'wU') as f:
         f.write(problem_template.format(title=title, url=url))
     st = os.stat(program)
     os.chmod(program, st.st_mode | stat.S_IEXEC)
 
-    with open('{0}/input.txt'.format(problem_name), 'w') as f:
+    with open('{0}/input.txt'.format(problem_name), 'wU') as f:
         f.write(test_input)
 
-    with open('{0}/output.txt'.format(problem_name), 'w') as f:
+    with open('{0}/output.txt'.format(problem_name), 'wU') as f:
         f.write(test_output)
 
     print t.bright_green('Directory created for problem `{0}`.'.format(problem_name))
@@ -108,6 +108,11 @@ def _find_sample_io(soup):
         test_input = unicode(io.contents[1]).strip()
         test_output = unicode(io.contents[3]).strip()
         return test_input, test_output
+
+    if 'Sample input:' in io.text and 'Sample output:' in io.text:
+        test_input, test_output = io.text.split('Sample output:')
+        test_input = test_input.replace('Sample input:', '')
+        return test_input.strip(), test_output.strip()
 
     raise ValueError('Could not find sample input or output!')
 
