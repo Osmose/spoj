@@ -9,7 +9,7 @@ solving the problems themselves.
 Install
 -------
 
-.. code-block:: sh
+.. code:: sh
    pip install https://github.com/Osmose/spoj.git
 
 Solving a Problem
@@ -18,7 +18,7 @@ Solving a Problem
 To start solving a problem, create a new directory for it using the ``create``
 command along with the code for the problem:
 
-.. code-block:: sh
+.. code:: sh
    $ ./spoj.py create test
    Directory created for problem `test`.
    $ cd test
@@ -28,11 +28,12 @@ command along with the code for the problem:
 ``program.py`` contains the code for the program, and ``input.txt`` and
 ``output.txt`` contain the test input and output scraped from the problem page.
 
-## Testing a solution
+Testing a solution
+------------------
 
 To test a solution, use the `test` command:
 
-.. code-block:: sh
+.. code:: sh
    $ ./spoj.py test test
    Test run failed!
    <== Input ==>
@@ -64,15 +65,17 @@ To test a solution, use the `test` command:
    2
    88
 
-## Developer Setup
+Developer Setup
+---------------
 
 1. Use a `virtualenv <https://virtualenv.pypa.io/en/latest/>`_!
 2. Install the package in development mode:
 
-.. code-block:: sh
+.. code:: sh
    $ ./setup.py develop
 
-## License
+License
+-------
 This software is licensed under the
 `MIT License <http://opensource.org/licenses/MIT>`_. For more information, see
 the ``LICENSE`` file.
