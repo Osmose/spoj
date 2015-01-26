@@ -33,6 +33,8 @@ setup(
         'beautifulsoup4>=4.3.2',
         'blessings>=1.6',
         'requests>=2.5.1',
+        'pypandoc>=0.8.6',
+        'readability-lxml>=0.3.0.5',
     ],
     include_package_data=True,
     entry_points={

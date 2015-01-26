@@ -1,15 +1,19 @@
 #!/usr/bin/env python
+import logging
 import os
 import stat
 import subprocess
 
 import argh
+import pypandoc
 import requests
 from blessings import Terminal
 from bs4 import BeautifulSoup
+from readability.readability import Document
 
 
 __version__ = '0.1'
+logging.getLogger('requests').setLevel(logging.WARNING)
 
 
 def test(problem_name):
@@ -42,6 +46,20 @@ def test(problem_name):
         print test_input
         print t.cyan('<== Output ==>')
         print expected_output
+
+
+def info(problem_name):
+    url = 'http://www.spoj.com/problems/{0}/'.format(problem_name.upper())
+    response = requests.get(url)
+    response.raise_for_status()
+
+    soup = BeautifulSoup(response.text)
+    problem_html = unicode(soup.findAll(**{'class': 'prob'})[0])
+    readable_problem = Document(problem_html, negative_keywords=['ccontent'], positive_keywords=['prob'])
+    problem_summary = readable_problem.summary(html_partial=True).strip()
+    plain_problem = pypandoc.convert(problem_summary, 'plain', format='html')
+
+    print plain_problem
 
 
 problem_template = '''
@@ -122,7 +140,7 @@ def _find_sample_io(soup):
 
 def main():
     parser = argh.ArghParser()
-    parser.add_commands([test, create])
+    parser.add_commands([test, create, info])
     parser.dispatch()
 
 
