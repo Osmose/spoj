@@ -9,21 +9,19 @@ solving the problems themselves.
 Install
 -------
 
-.. code:: sh
-   pip install https://github.com/Osmose/spoj.git
+    pip install https://github.com/Osmose/spoj.git
 
 Solving a Problem
 -----------------
 
 To start solving a problem, create a new directory for it using the ``create``
-command along with the code for the problem:
+command along with the code for the problem::
 
-.. code:: sh
-   $ ./spoj.py create test
-   Directory created for problem `test`.
-   $ cd test
-   $ ls
-   input.txt  output.txt  program.py
+    $ ./spoj.py create test
+    Directory created for problem `test`.
+    $ cd test
+    $ ls
+    input.txt  output.txt  program.py
 
 ``program.py`` contains the code for the program, and ``input.txt`` and
 ``output.txt`` contain the test input and output scraped from the problem page.
@@ -31,39 +29,38 @@ command along with the code for the problem:
 Testing a solution
 ------------------
 
-To test a solution, use the `test` command:
+To test a solution, use the `test` command::
 
-.. code:: sh
-   $ ./spoj.py test test
-   Test run failed!
-   <== Input ==>
-   1
-   2
-   88
-   42
-   99
+    $ ./spoj.py test test
+    Test run failed!
+    <== Input ==>
+    1
+    2
+    88
+    42
+    99
 
-   <== Expected output ==>
-   1
-   2
-   88
+    <== Expected output ==>
+    1
+    2
+    88
 
-   <== Actual output ==>
+    <== Actual output ==>
 
-   # After fixing the code...
-   $ ./spoj.py test test
-   Test run passed!
-   <== Input ==>
-   1
-   2
-   88
-   42
-   99
+    # After fixing the code...
+    $ ./spoj.py test test
+    Test run passed!
+    <== Input ==>
+    1
+    2
+    88
+    42
+    99
 
-   <== Output ==>
-   1
-   2
-   88
+    <== Output ==>
+    1
+    2
+    88
 
 Developer Setup
 ---------------
