@@ -9,6 +9,8 @@ solving the problems themselves.
 Install
 -------
 
+::
+
     pip install https://github.com/Osmose/spoj.git
 
 Solving a Problem
