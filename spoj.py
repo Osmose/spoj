@@ -10,6 +10,7 @@ import requests
 from blessings import Terminal
 from bs4 import BeautifulSoup
 from readability.readability import Document
+from tabulate import tabulate
 
 
 __version__ = '0.1'
@@ -60,6 +61,29 @@ def info(problem_name):
     plain_problem = pypandoc.convert(problem_summary, 'plain', format='html')
 
     print plain_problem
+
+
+@argh.decorators.named('list')
+def list_problems(start=0):
+    # TODO: List challenge, tutorial, etc. problems.
+    url = 'http://www.spoj.com/problems/classical/sort=0,start={0}'.format(start)
+    response = requests.get(url)
+    response.raise_for_status()
+
+    soup = BeautifulSoup(response.text)
+    problems = []
+    for row in soup.findAll(**{'class': 'problemrow'}):
+        cells = row.findAll('td')
+        problems.append([
+            int(cells[0].text),  # ID
+            cells[1].text,  # Name
+            cells[2].text,  # Code
+            int(cells[3].text),  # Users
+            cells[4].text,  # Accuracy
+        ])
+
+    print tabulate(problems, headers=['ID', 'Name', 'Code', 'Users Solved', 'Accuracy %'],
+                   tablefmt='fancy_grid')
 
 
 problem_template = '''
@@ -140,7 +164,7 @@ def _find_sample_io(soup):
 
 def main():
     parser = argh.ArghParser()
-    parser.add_commands([test, create, info])
+    parser.add_commands([test, create, info, list_problems])
     parser.dispatch()
 
 
